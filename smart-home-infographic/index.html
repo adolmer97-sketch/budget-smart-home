@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Built a Smart Home for $147 — Full Breakdown | SmartHomeBudget</title>
+  <meta name="description" content="See exactly how I built a complete smart home for under $150. Room-by-room breakdown, every product, and total cost.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/smart-home-infographic/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="I Built a Smart Home for $147 — Full Breakdown">
+  <meta property="og:description" content="See exactly how I built a complete smart home for under $150. Room-by-room breakdown, every product, and total cost.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://yourdomain.com/smart-home-infographic/">
+  <meta property="og:image" content="https://yourdomain.com/images/smart-home-infographic-pin.jpg">
+  <meta property="og:image:width" content="1000">
+  <meta property="og:image:height" content="1500">
+  <meta property="og:site_name" content="SmartHomeBudget">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="I Built a Smart Home for $147 — Full Breakdown">
+  <meta name="twitter:description" content="See exactly how I built a complete smart home for under $150. Room-by-room breakdown, every product, and total cost.">
+
+  <!-- Pinterest -->
+  <meta name="pinterest-rich-pin" content="true">
+  <meta property="og:rich_attachment" content="true">
+  <meta name="pin:description" content="I built a complete smart home for just $147! Here's the full room-by-room breakdown with every product, price, and setup tip. Perfect for beginners on a budget. #SmartHome #BudgetTech #HomeAutomation">
+  <meta name="pin:url" content="https://yourdomain.com/smart-home-infographic/">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "I Built a Complete Smart Home for Under $150",
+    "description": "See exactly how I built a complete smart home for under $150. Room-by-room breakdown, every product, and total cost.",
+    "author": {
+      "@type": "Organization",
+      "name": "SmartHomeBudget"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SmartHomeBudget",
+      "url": "https://yourdomain.com/"
+    },
+    "mainEntityOfPage": "https://yourdomain.com/smart-home-infographic/",
+    "datePublished": "2025-06-01",
+    "dateModified": "2025-06-01",
+    "image": "https://yourdomain.com/images/smart-home-infographic-pin.jpg"
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ===== INFOGRAPHIC CUSTOM PROPERTIES ===== */
+    :root {
+      --ig-green: #22c55e;
+      --ig-green-light: #dcfce7;
+      --ig-yellow: #eab308;
+      --ig-yellow-light: #fef9c3;
+      --ig-red: #ef4444;
+      --ig-red-light: #fee2e2;
+      --ig-blue: #3b82f6;
+      --ig-blue-light: #dbeafe;
+      --ig-purple: #8b5cf6;
+      --ig-purple-light: #ede9fe;
+      --ig-orange: #f97316;
+      --ig-orange-light: #fff7ed;
+      --ig-dark: #0f172a;
+      --ig-gray: #64748b;
+      --ig-radius: 16px;
+    }
+
+    /* ===== HERO BANNER ===== */
+    .ig-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ig-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+    @keyframes heroGlow {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-5%, 5%); }
+    }
+    .ig-hero .container { position: relative; z-index: 1; }
+    .ig-hero-badge {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+    .ig-hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .ig-hero h1 .price {
+      color: var(--ig-green);
+      position: relative;
+    }
+    .ig-hero .subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.5;
+    }
+    .ig-hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .ig-hero-stat {
+      text-align: center;
+    }
+    .ig-hero-stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      display: block;
+      color: #fff;
+    }
+    .ig-hero-stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+    }
+
+    /* ===== SECTION WRAPPER ===== */
+    .ig-section {
+      padding: 4rem 1.5rem;
+    }
+    .ig-section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--ig-dark);
+      letter-spacing: -0.01em;
+    }
+    .ig-section-subtitle {
+      text-align: center;
+      font-size: 1.05rem;
+      color: var(--ig-gray);
+      margin-bottom: 2.5rem;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== SETUP OVERVIEW ===== */
+    .ig-setup {
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+    .ig-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    .ig-product-card {
+      background: #fff;
+      border-radius: var(--ig-radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ig-product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .ig-product-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .ig-product-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--ig-dark);
+      margin-bottom: 0.3rem;
+    }
+    .ig-product-price {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--ig-green);
+    }
+    .ig-total-bar {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--ig-dark);
+      color: #fff;
+      border-radius: var(--ig-radius);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .ig-total-bar .total-amount {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--ig-green);
+    }
+
+    /* ===== ROOM BY ROOM ===== */
+    .ig-rooms {
+      background: #fff;
+      padding-bottom: 2rem;
+    }
+    .ig-room {
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+      border-radius: var(--ig-radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ig-room::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+    }
+    .ig-room--living {
+      background: var(--ig-blue-light);
+    }
+    .ig-room--living::before { background: var(--ig-blue); }
+    .ig-room--bedroom {
+      background: var(--ig-purple-light);
+    }
+    .ig-room--bedroom::before { background: var(--ig-purple); }
+    .ig-room--kitchen {
+      background: var(--ig-yellow-light);
+    }
+    .ig-room--kitchen::before { background: var(--ig-yellow); }
+    .ig-room--door {
+      background: var(--ig-red-light);
+    }
+    .ig-room--door::before { background: var(--ig-red); }
+    .ig-room-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+    .ig-room-emoji {
+      font-size: 2rem;
+    }
+    .ig-room-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--ig-dark);
+    }
+    .ig-room-items {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem 0;
+    }
+    .ig-room-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.95rem;
+    }
+    .ig-room-items li:last-child { border-bottom: none; }
+    .ig-room-items .item-name {
+      font-weight: 600;
+      color: var(--ig-dark);
+    }
+    .ig-room-items .item-price {
+      font-weight: 800;
+      color: var(--ig-green);
+      white-space: nowrap;
+    }
+    .ig-room-benefit {
+      background: rgba(255,255,255,0.7);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      color: var(--ig-dark);
+      font-style: italic;
+      line-height: 1.4;
+    }
+    .ig-room-benefit::before {
+      content: '\201C';
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: rgba(0,0,0,0.15);
+      margin-right: 0.3rem;
+      line-height: 0;
+      vertical-align: -0.2em;
+    }
+
+    /* ===== COST BREAKDOWN ===== */
+    .ig-cost {
+      background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+    .ig-bar-chart {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    .ig-bar-track {
+      height: 56px;
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .ig-bar-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      transition: flex-basis 0.6s ease;
+    }
+    .ig-bar-seg--plugs    { background: var(--ig-green); flex-basis: 12.24%; }
+    .ig-bar-seg--bulbs    { background: var(--ig-yellow); flex-basis: 16.33%; color: var(--ig-dark); }
+    .ig-bar-seg--camera   { background: var(--ig-red); flex-basis: 13.61%; }
+    .ig-bar-seg--speaker  { background: var(--ig-blue); flex-basis: 19.05%; }
+    .ig-bar-seg--vacuum   { background: var(--ig-purple); flex-basis: 38.78%; }
+    .ig-bar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 2rem;
+      margin-top: 1.5rem;
+    }
+    .ig-bar-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .ig-bar-legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .ig-bar-legend-name {
+      font-weight: 600;
+      color: var(--ig-dark);
+    }
+    .ig-bar-legend-val {
+      color: var(--ig-gray);
+    }
+
+    /* ===== BEFORE VS AFTER ===== */
+    .ig-compare {
+      background: #fff;
+    }
+    .ig-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    @media (max-width: 600px) {
+      .ig-compare-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .ig-compare-col {
+      border-radius: var(--ig-radius);
+      padding: 2rem 1.5rem;
+    }
+    .ig-compare-col--before {
+      background: linear-gradient(135deg, #fef2f2, #fee2e2);
+      border: 2px solid #fecaca;
+    }
+    .ig-compare-col--after {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 2px solid #bbf7d0;
+    }
+    .ig-compare-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .ig-compare-col--before .ig-compare-label { color: var(--ig-red); }
+    .ig-compare-col--after .ig-compare-label { color: var(--ig-green); }
+    .ig-compare-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .ig-compare-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.95rem;
+      color: var(--ig-dark);
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .ig-compare-list li:last-child { border-bottom: none; }
+    .ig-compare-list li::before {
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .ig-compare-col--before .ig-compare-list li::before {
+      content: '\274C';
+    }
+    .ig-compare-col--after .ig-compare-list li::before {
+      content: '\2705';
+    }
+
+    /* ===== CTA SECTION ===== */
+    .ig-cta {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
+      color: #fff;
+      text-align: center;
+    }
+    .ig-cta .ig-section-title { color: #fff; }
+    .ig-cta .ig-section-subtitle { color: #94a3b8; }
+    .ig-cta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+    }
+    .ig-cta-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--ig-radius);
+      padding: 1.8rem 1.2rem;
+      text-decoration: none;
+      color: #fff;
+      transition: background 0.2s ease, transform 0.2s ease;
+      display: block;
+    }
+    .ig-cta-card:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+    .ig-cta-card-emoji {
+      font-size: 2rem;
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+    .ig-cta-card-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+    .ig-cta-card-desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    .ig-cta-products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .ig-cta-products a {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+    .ig-cta-products a:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    /* ===== SHARE SECTION ===== */
+    .ig-share {
+      background: var(--ig-orange-light);
+      text-align: center;
+    }
+    .ig-share .ig-section-title { color: var(--ig-dark); }
+    .ig-share-btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .ig-share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .ig-share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .ig-share-btn--pin {
+      background: #e60023;
+      color: #fff;
+    }
+    .ig-share-btn--tw {
+      background: #0f172a;
+      color: #fff;
+    }
+    .ig-share-btn--fb {
+      background: #1877f2;
+      color: #fff;
+    }
+    .ig-share-btn--copy {
+      background: #fff;
+      color: var(--ig-dark);
+      border: 2px solid #e2e8f0;
+    }
+
+    /* ===== DIVIDER ARROWS ===== */
+    .ig-divider {
+      text-align: center;
+      padding: 0;
+      line-height: 0;
+    }
+    .ig-divider svg {
+      width: 40px;
+      height: 40px;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span>&#9889;</span> SmartHome<span>Budget</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+          <li><a href="/best-security-cameras/">Cameras</a></li>
+          <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+          <li><a href="/best-smart-speakers/">Speakers</a></li>
+          <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== INFOGRAPHIC START ========== -->
+
+  <!-- 1. HERO BANNER -->
+  <section class="ig-hero">
+    <div class="container">
+      <div class="ig-hero-badge">Real Budget Build</div>
+      <h1>I Built a Complete<br>Smart Home for <span class="price">$147</span></h1>
+      <p class="subtitle">Here's exactly what I bought and why</p>
+      <div class="ig-hero-stats">
+        <div class="ig-hero-stat">
+          <span class="ig-hero-stat-value">5</span>
+          <span class="ig-hero-stat-label">Products</span>
+        </div>
+        <div class="ig-hero-stat">
+          <span class="ig-hero-stat-value">4</span>
+          <span class="ig-hero-stat-label">Rooms</span>
+        </div>
+        <div class="ig-hero-stat">
+          <span class="ig-hero-stat-value">$147</span>
+          <span class="ig-hero-stat-label">Total Cost</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. THE SETUP OVERVIEW -->
+  <section class="ig-section ig-setup">
+    <div class="container">
+      <h2 class="ig-section-title">The Complete Setup</h2>
+      <p class="ig-section-subtitle">Every device I bought, all under $150 total</p>
+      <div class="ig-product-grid">
+        <div class="ig-product-card">
+          <span class="ig-product-emoji">&#128268;</span>
+          <div class="ig-product-name">Smart Plugs (3-pack)</div>
+          <div class="ig-product-price">$18</div>
+        </div>
+        <div class="ig-product-card">
+          <span class="ig-product-emoji">&#128161;</span>
+          <div class="ig-product-name">Smart Bulbs (2-pack)</div>
+          <div class="ig-product-price">$24</div>
+        </div>
+        <div class="ig-product-card">
+          <span class="ig-product-emoji">&#128247;</span>
+          <div class="ig-product-name">Security Camera</div>
+          <div class="ig-product-price">$20</div>
+        </div>
+        <div class="ig-product-card">
+          <span class="ig-product-emoji">&#128266;</span>
+          <div class="ig-product-name">Smart Speaker</div>
+          <div class="ig-product-price">$28</div>
+        </div>
+        <div class="ig-product-card">
+          <span class="ig-product-emoji">&#129302;</span>
+          <div class="ig-product-name">Robot Vacuum</div>
+          <div class="ig-product-price">$57</div>
+        </div>
+      </div>
+      <div class="ig-total-bar">
+        <span>Grand Total</span>
+        <span class="total-amount">$147</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ROOM-BY-ROOM BREAKDOWN -->
+  <section class="ig-section ig-rooms">
+    <div class="container">
+      <h2 class="ig-section-title">Room-by-Room Breakdown</h2>
+      <p class="ig-section-subtitle">How each room got smarter without breaking the bank</p>
+
+      <!-- Living Room -->
+      <div class="ig-room ig-room--living">
+        <div class="ig-room-header">
+          <span class="ig-room-emoji">&#127962;</span>
+          <h3 class="ig-room-name">Living Room</h3>
+        </div>
+        <ul class="ig-room-items">
+          <li>
+            <span class="item-name">&#128266; Smart Speaker (Echo Dot)</span>
+            <span class="item-price">$28</span>
+          </li>
+          <li>
+            <span class="item-name">&#128268; Smart Plug (lamp)</span>
+            <span class="item-price">$6</span>
+          </li>
+          <li>
+            <span class="item-name">&#128161; Smart Bulb (overhead)</span>
+            <span class="item-price">$12</span>
+          </li>
+        </ul>
+        <div class="ig-room-benefit">Now I say 'Alexa, movie time' and the lights dim automatically</div>
+      </div>
+
+      <!-- Bedroom -->
+      <div class="ig-room ig-room--bedroom">
+        <div class="ig-room-header">
+          <span class="ig-room-emoji">&#128716;</span>
+          <h3 class="ig-room-name">Bedroom</h3>
+        </div>
+        <ul class="ig-room-items">
+          <li>
+            <span class="item-name">&#128161; Smart Bulb (nightstand)</span>
+            <span class="item-price">$12</span>
+          </li>
+          <li>
+            <span class="item-name">&#128268; Smart Plug (fan)</span>
+            <span class="item-price">$6</span>
+          </li>
+        </ul>
+        <div class="ig-room-benefit">Lights fade on gently as my morning alarm goes off</div>
+      </div>
+
+      <!-- Kitchen -->
+      <div class="ig-room ig-room--kitchen">
+        <div class="ig-room-header">
+          <span class="ig-room-emoji">&#127859;</span>
+          <h3 class="ig-room-name">Kitchen</h3>
+        </div>
+        <ul class="ig-room-items">
+          <li>
+            <span class="item-name">&#128268; Smart Plug (coffee maker)</span>
+            <span class="item-price">$6</span>
+          </li>
+          <li>
+            <span class="item-name">&#129302; Robot Vacuum</span>
+            <span class="item-price">$57</span>
+          </li>
+        </ul>
+        <div class="ig-room-benefit">Coffee starts brewing automatically when my alarm goes off</div>
+      </div>
+
+      <!-- Front Door -->
+      <div class="ig-room ig-room--door">
+        <div class="ig-room-header">
+          <span class="ig-room-emoji">&#128682;</span>
+          <h3 class="ig-room-name">Front Door</h3>
+        </div>
+        <ul class="ig-room-items">
+          <li>
+            <span class="item-name">&#128247; Indoor Security Camera</span>
+            <span class="item-price">$20</span>
+          </li>
+        </ul>
+        <div class="ig-room-benefit">I get instant phone alerts whenever motion is detected at the door</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. COST BREAKDOWN VISUAL -->
+  <section class="ig-section ig-cost">
+    <div class="container">
+      <h2 class="ig-section-title">Where the Money Went</h2>
+      <p class="ig-section-subtitle">Every dollar of the $147 budget, visualized</p>
+      <div class="ig-bar-chart">
+        <div class="ig-bar-track">
+          <div class="ig-bar-seg ig-bar-seg--plugs" title="Smart Plugs $18">12%</div>
+          <div class="ig-bar-seg ig-bar-seg--bulbs" title="Smart Bulbs $24">16%</div>
+          <div class="ig-bar-seg ig-bar-seg--camera" title="Security Camera $20">14%</div>
+          <div class="ig-bar-seg ig-bar-seg--speaker" title="Smart Speaker $28">19%</div>
+          <div class="ig-bar-seg ig-bar-seg--vacuum" title="Robot Vacuum $57">39%</div>
+        </div>
+        <div class="ig-bar-legend">
+          <div class="ig-bar-legend-item">
+            <span class="ig-bar-legend-dot" style="background:var(--ig-green)"></span>
+            <span class="ig-bar-legend-name">Smart Plugs</span>
+            <span class="ig-bar-legend-val">$18 (12%)</span>
+          </div>
+          <div class="ig-bar-legend-item">
+            <span class="ig-bar-legend-dot" style="background:var(--ig-yellow)"></span>
+            <span class="ig-bar-legend-name">Smart Bulbs</span>
+            <span class="ig-bar-legend-val">$24 (16%)</span>
+          </div>
+          <div class="ig-bar-legend-item">
+            <span class="ig-bar-legend-dot" style="background:var(--ig-red)"></span>
+            <span class="ig-bar-legend-name">Camera</span>
+            <span class="ig-bar-legend-val">$20 (14%)</span>
+          </div>
+          <div class="ig-bar-legend-item">
+            <span class="ig-bar-legend-dot" style="background:var(--ig-blue)"></span>
+            <span class="ig-bar-legend-name">Speaker</span>
+            <span class="ig-bar-legend-val">$28 (19%)</span>
+          </div>
+          <div class="ig-bar-legend-item">
+            <span class="ig-bar-legend-dot" style="background:var(--ig-purple)"></span>
+            <span class="ig-bar-legend-name">Robot Vacuum</span>
+            <span class="ig-bar-legend-val">$57 (39%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. BEFORE VS AFTER -->
+  <section class="ig-section ig-compare">
+    <div class="container">
+      <h2 class="ig-section-title">Before vs. After</h2>
+      <p class="ig-section-subtitle">What $147 actually changed in my daily life</p>
+      <div class="ig-compare-grid">
+        <div class="ig-compare-col ig-compare-col--before">
+          <div class="ig-compare-label">&#9940; Before</div>
+          <ul class="ig-compare-list">
+            <li>Manually turn off every light before bed</li>
+            <li>No idea who's at the door when I'm away</li>
+            <li>Vacuum every weekend by hand</li>
+            <li>Walk to the kitchen to start coffee</li>
+            <li>Wake up to a blaring phone alarm</li>
+          </ul>
+        </div>
+        <div class="ig-compare-col ig-compare-col--after">
+          <div class="ig-compare-label">&#9989; After ($147)</div>
+          <ul class="ig-compare-list">
+            <li>Everything turns off with one voice command</li>
+            <li>Get instant alerts on my phone with video</li>
+            <li>Robot vacuums the floors while I sleep</li>
+            <li>Coffee brews automatically each morning</li>
+            <li>Lights gently fade on to wake me up</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. START YOUR SMART HOME CTA -->
+  <section class="ig-section ig-cta">
+    <div class="container">
+      <h2 class="ig-section-title">Start Your Smart Home</h2>
+      <p class="ig-section-subtitle">Use our free tools to plan your own budget setup</p>
+      <div class="ig-cta-grid">
+        <a href="/budget-calculator/" class="ig-cta-card">
+          <span class="ig-cta-card-emoji">&#128176;</span>
+          <div class="ig-cta-card-title">Calculate Your Budget</div>
+          <div class="ig-cta-card-desc">See what you can build for any amount</div>
+        </a>
+        <a href="/ecosystem-quiz/" class="ig-cta-card">
+          <span class="ig-cta-card-emoji">&#129300;</span>
+          <div class="ig-cta-card-title">Take the Ecosystem Quiz</div>
+          <div class="ig-cta-card-desc">Alexa, Google, or Apple? Find your match</div>
+        </a>
+        <a href="/build-your-setup/" class="ig-cta-card">
+          <span class="ig-cta-card-emoji">&#128736;</span>
+          <div class="ig-cta-card-title">Build Your Setup</div>
+          <div class="ig-cta-card-desc">Drag-and-drop your dream smart home</div>
+        </a>
+      </div>
+      <div class="ig-cta-products">
+        <a href="/best-smart-plugs/">&#128268; Smart Plugs Guide</a>
+        <a href="/best-security-cameras/">&#128247; Camera Reviews</a>
+        <a href="/best-smart-bulbs/">&#128161; Smart Bulbs Guide</a>
+        <a href="/best-smart-speakers/">&#128266; Speaker Reviews</a>
+        <a href="/best-robot-vacuums/">&#129302; Robot Vacuums Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SHARE SECTION -->
+  <section class="ig-section ig-share">
+    <div class="container">
+      <h2 class="ig-section-title">&#128205; Found This Helpful?</h2>
+      <p class="ig-section-subtitle">Share this guide with someone who wants a smart home without overspending</p>
+      <div class="ig-share-btns">
+        <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fyourdomain.com%2Fsmart-home-infographic%2F&description=I%20built%20a%20complete%20smart%20home%20for%20%24147!%20Full%20room-by-room%20breakdown%20with%20every%20product%20and%20price.%20%23SmartHome%20%23BudgetTech" class="ig-share-btn ig-share-btn--pin" target="_blank" rel="noopener noreferrer">
+          &#128205; Pin This Guide
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=I%20built%20a%20complete%20smart%20home%20for%20%24147.%20Here%27s%20the%20full%20breakdown%3A&url=https%3A%2F%2Fyourdomain.com%2Fsmart-home-infographic%2F" class="ig-share-btn ig-share-btn--tw" target="_blank" rel="noopener noreferrer">
+          &#120143; Share on X
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyourdomain.com%2Fsmart-home-infographic%2F" class="ig-share-btn ig-share-btn--fb" target="_blank" rel="noopener noreferrer">
+          f Share on Facebook
+        </a>
+        <button class="ig-share-btn ig-share-btn--copy" onclick="navigator.clipboard.writeText('https://yourdomain.com/smart-home-infographic/');this.textContent='Copied!';">
+          &#128203; Copy Link
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INFOGRAPHIC END ========== -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-about">
+          <h3>SmartHomeBudget</h3>
+          <p>We help thousands of readers build their dream smart home without overspending. Our mission is to make smart home technology accessible to everyone.</p>
+        </div>
+        <div class="footer-links">
+          <h3>Guides</h3>
+          <ul>
+            <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+            <li><a href="/best-security-cameras/">Security Cameras</a></li>
+            <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+            <li><a href="/best-smart-speakers/">Smart Speakers</a></li>
+            <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Site</h3>
+          <ul>
+            <li><a href="/about/">About &amp; Disclosure</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SmartHomeBudget. All rights reserved. | <a href="/about/">Affiliate Disclosure</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

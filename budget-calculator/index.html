@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Home Budget Calculator — Plan Your Setup | SmartHomeBudget</title>
+  <meta name="description" content="Use our free smart home budget calculator to plan your ideal setup. Find the best devices for your budget and priorities — smart home cost planning made easy.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/budget-calculator/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Smart Home Budget Calculator — Plan Your Setup | SmartHomeBudget">
+  <meta property="og:description" content="Plan your smart home setup within your budget. Get personalized device recommendations based on what matters most to you.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/budget-calculator/">
+
+  <!-- Schema.org WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Smart Home Budget Calculator",
+    "url": "https://yourdomain.com/budget-calculator/",
+    "description": "Plan your smart home setup within your budget. Get personalized device recommendations based on your priorities.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SmartHomeBudget",
+      "url": "https://yourdomain.com/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Calculator-specific styles */
+    .calc-hero {
+      background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+      color: #fff;
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+    .calc-hero h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .calc-hero p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .calculator-wrapper {
+      max-width: 800px;
+      margin: -1.5rem auto 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Steps */
+    .calc-step {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    .calc-step.active {
+      display: block;
+      animation: fadeSlideIn 0.4s ease;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-label {
+      display: inline-block;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .calc-step h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .calc-step .step-desc {
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Budget Input */
+    .budget-input-group {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: 320px;
+      margin: 0 auto 1.25rem;
+    }
+    .budget-input-group .dollar-sign {
+      background: var(--color-bg-light);
+      border: 2px solid var(--color-border);
+      border-right: none;
+      border-radius: var(--radius) 0 0 var(--radius);
+      padding: 0.85rem 0.9rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-text-light);
+      line-height: 1;
+    }
+    .budget-input-group input {
+      flex: 1;
+      border: 2px solid var(--color-border);
+      border-left: none;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.85rem 1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .budget-input-group input:focus {
+      border-color: var(--color-primary);
+    }
+
+    .preset-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .preset-btn {
+      background: var(--color-bg-light);
+      border: 2px solid var(--color-border);
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--color-text);
+    }
+    .preset-btn:hover, .preset-btn.selected {
+      border-color: var(--color-primary);
+      background: #e8f0fe;
+      color: var(--color-primary);
+    }
+
+    /* Priority checkboxes */
+    .priority-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+    .priority-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .priority-option:hover {
+      border-color: var(--color-primary);
+      background: #f0f6ff;
+    }
+    .priority-option.checked {
+      border-color: var(--color-primary);
+      background: #e8f0fe;
+    }
+    .priority-option input[type="checkbox"] {
+      display: none;
+    }
+    .priority-option .check-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--color-border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .priority-option.checked .check-box {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    .priority-option .check-box svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      stroke-width: 3;
+      fill: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .priority-option.checked .check-box svg {
+      opacity: 1;
+    }
+    .priority-icon {
+      font-size: 1.3rem;
+    }
+    .priority-label-text {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Navigation buttons */
+    .calc-nav {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 1.75rem;
+    }
+    .calc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .calc-btn-primary {
+      background: var(--color-primary);
+      color: #fff;
+    }
+    .calc-btn-primary:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+    }
+    .calc-btn-primary:disabled {
+      background: #b0c4de;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .calc-btn-secondary {
+      background: var(--color-bg-light);
+      color: var(--color-text);
+      border: 2px solid var(--color-border);
+    }
+    .calc-btn-secondary:hover {
+      border-color: var(--color-text-light);
+    }
+
+    /* Results */
+    .results-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .summary-card {
+      background: var(--color-bg-light);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .summary-card .label {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .summary-card .value {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .summary-card .value.green {
+      color: var(--color-accent);
+    }
+    .summary-card .value.blue {
+      color: var(--color-primary);
+    }
+
+    /* Budget progress bar */
+    .budget-bar-wrapper {
+      margin-bottom: 2rem;
+    }
+    .budget-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .budget-bar {
+      height: 12px;
+      background: #e8eaed;
+      border-radius: 50px;
+      overflow: hidden;
+      position: relative;
+    }
+    .budget-bar-fill {
+      height: 100%;
+      border-radius: 50px;
+      transition: width 0.6s ease;
+      background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-primary) 100%);
+    }
+    .budget-bar-fill.over-budget {
+      background: linear-gradient(90deg, var(--color-warning) 0%, #d93025 100%);
+    }
+
+    /* Product cards */
+    .product-results {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .result-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      transition: box-shadow 0.2s;
+    }
+    .result-card:hover {
+      box-shadow: var(--shadow);
+    }
+    .result-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .result-card-info h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.15rem;
+    }
+    .result-card-info .rc-desc {
+      color: var(--color-text-light);
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+    .result-card-info .rc-article {
+      font-size: 0.8rem;
+    }
+    .result-card-price {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .result-card-price .price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .amazon-btn {
+      display: inline-block;
+      background: #ff9900;
+      color: #111;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .amazon-btn:hover {
+      background: #e68a00;
+      color: #111;
+    }
+
+    /* Start Over */
+    .start-over-wrap {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .calc-hero h1 { font-size: 1.5rem; }
+      .calc-step { padding: 1.25rem; }
+      .results-summary { grid-template-columns: 1fr; }
+      .result-card { flex-direction: column; align-items: flex-start; }
+      .result-card-price { text-align: left; display: flex; align-items: center; gap: 1rem; }
+      .priority-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span>&#9889;</span> SmartHome<span>Budget</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+          <li><a href="/best-security-cameras/">Cameras</a></li>
+          <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+          <li><a href="/best-smart-speakers/">Speakers</a></li>
+          <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="calc-hero">
+    <div class="container">
+      <h1>Smart Home Budget Calculator</h1>
+      <p>Tell us your budget and priorities, and we'll build you a personalized smart home setup.</p>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <div class="container">
+    <div class="calculator-wrapper">
+
+      <!-- STEP 1: Budget -->
+      <div class="calc-step active" id="step1">
+        <span class="step-label">Step 1 of 2</span>
+        <h2>What's your smart home budget?</h2>
+        <p class="step-desc">Choose a preset or enter your own amount.</p>
+
+        <div class="preset-buttons">
+          <button class="preset-btn" data-amount="50">$50</button>
+          <button class="preset-btn" data-amount="100">$100</button>
+          <button class="preset-btn" data-amount="150">$150</button>
+          <button class="preset-btn" data-amount="200">$200</button>
+          <button class="preset-btn" data-amount="300">$300</button>
+        </div>
+
+        <div class="budget-input-group">
+          <span class="dollar-sign">$</span>
+          <input type="number" id="budgetInput" placeholder="Enter amount" min="10" max="9999" aria-label="Budget amount in dollars">
+        </div>
+
+        <div class="calc-nav">
+          <button class="calc-btn calc-btn-primary" id="toStep2" disabled>Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Priorities -->
+      <div class="calc-step" id="step2">
+        <span class="step-label">Step 2 of 2</span>
+        <h2>What matters most to you?</h2>
+        <p class="step-desc">Select one or more priorities to personalize your recommendations.</p>
+
+        <div class="priority-grid">
+          <label class="priority-option" data-priority="security">
+            <input type="checkbox" value="security">
+            <span class="check-box"><svg viewBox="0 0 16 16"><polyline points="3 8 7 12 13 4"/></svg></span>
+            <span class="priority-icon">&#128274;</span>
+            <span class="priority-label-text">Security</span>
+          </label>
+          <label class="priority-option" data-priority="convenience">
+            <input type="checkbox" value="convenience">
+            <span class="check-box"><svg viewBox="0 0 16 16"><polyline points="3 8 7 12 13 4"/></svg></span>
+            <span class="priority-icon">&#128161;</span>
+            <span class="priority-label-text">Convenience</span>
+          </label>
+          <label class="priority-option" data-priority="entertainment">
+            <input type="checkbox" value="entertainment">
+            <span class="check-box"><svg viewBox="0 0 16 16"><polyline points="3 8 7 12 13 4"/></svg></span>
+            <span class="priority-icon">&#127911;</span>
+            <span class="priority-label-text">Entertainment</span>
+          </label>
+          <label class="priority-option" data-priority="energy">
+            <input type="checkbox" value="energy">
+            <span class="check-box"><svg viewBox="0 0 16 16"><polyline points="3 8 7 12 13 4"/></svg></span>
+            <span class="priority-icon">&#9889;</span>
+            <span class="priority-label-text">Energy Savings</span>
+          </label>
+          <label class="priority-option" data-priority="cleaning">
+            <input type="checkbox" value="cleaning">
+            <span class="check-box"><svg viewBox="0 0 16 16"><polyline points="3 8 7 12 13 4"/></svg></span>
+            <span class="priority-icon">&#129529;</span>
+            <span class="priority-label-text">Cleaning</span>
+          </label>
+        </div>
+
+        <div class="calc-nav">
+          <button class="calc-btn calc-btn-secondary" id="backTo1">&larr; Back</button>
+          <button class="calc-btn calc-btn-primary" id="getResults">See My Setup &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Results -->
+      <div class="calc-step" id="step3">
+        <span class="step-label">Your Personalized Setup</span>
+        <h2 id="resultsHeading">Here's your smart home plan</h2>
+        <p class="step-desc" id="resultsSubtext"></p>
+
+        <!-- Budget Summary -->
+        <div class="results-summary">
+          <div class="summary-card">
+            <div class="label">Total Cost</div>
+            <div class="value blue" id="totalCost">$0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Budget Remaining</div>
+            <div class="value green" id="budgetRemaining">$0</div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="budget-bar-wrapper">
+          <div class="budget-bar-labels">
+            <span id="barUsedLabel">$0 used</span>
+            <span id="barBudgetLabel">$0 budget</span>
+          </div>
+          <div class="budget-bar">
+            <div class="budget-bar-fill" id="budgetBarFill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Product Cards -->
+        <div class="product-results" id="productResults"></div>
+
+        <!-- Start Over -->
+        <div class="start-over-wrap">
+          <button class="calc-btn calc-btn-secondary" id="startOver">&#8634; Start Over</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-about">
+          <h3>SmartHomeBudget</h3>
+          <p>We help thousands of readers build their dream smart home without overspending. Our mission is to make smart home technology accessible to everyone.</p>
+        </div>
+        <div class="footer-links">
+          <h3>Guides</h3>
+          <ul>
+            <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+            <li><a href="/best-security-cameras/">Security Cameras</a></li>
+            <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+            <li><a href="/best-smart-speakers/">Smart Speakers</a></li>
+            <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Site</h3>
+          <ul>
+            <li><a href="/about/">About &amp; Disclosure</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SmartHomeBudget. All rights reserved. | <a href="/about/">Affiliate Disclosure</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    /* ============================================================
+       PRODUCT DATABASE
+       Each product has: name, price, description, category,
+       articleUrl, articleLabel, and priority tags
+    ============================================================ */
+    const PRODUCTS = [
+      {
+        name: 'TP-Link Kasa Smart Plug (2-pack)',
+        price: 13,
+        desc: 'Reliable Wi-Fi smart plugs with energy monitoring and voice control.',
+        category: 'plug',
+        articleUrl: '/best-smart-plugs/',
+        articleLabel: 'Best Budget Smart Plugs',
+        priorities: ['convenience', 'energy']
+      },
+      {
+        name: 'Govee Wi-Fi LED Bulbs (2-pack)',
+        price: 12,
+        desc: 'Millions of colors and warm-to-cool white, controllable from your phone.',
+        category: 'bulb',
+        articleUrl: '/best-smart-bulbs/',
+        articleLabel: 'Best Budget Smart Bulbs',
+        priorities: ['convenience', 'entertainment', 'energy']
+      },
+      {
+        name: 'Wyze Cam v3',
+        price: 28,
+        desc: '1080p indoor/outdoor camera with color night vision and free cloud clips.',
+        category: 'camera',
+        articleUrl: '/best-security-cameras/',
+        articleLabel: 'Best Budget Security Cameras',
+        priorities: ['security']
+      },
+      {
+        name: 'Amazon Echo Dot (5th Gen)',
+        price: 28,
+        desc: 'Compact smart speaker with improved sound and Alexa voice assistant.',
+        category: 'speaker',
+        articleUrl: '/best-smart-speakers/',
+        articleLabel: 'Best Budget Smart Speakers',
+        priorities: ['entertainment', 'convenience']
+      },
+      {
+        name: 'Lefant M210 Robot Vacuum',
+        price: 130,
+        desc: 'Slim design with strong suction, app control, and scheduling.',
+        category: 'vacuum',
+        articleUrl: '/best-robot-vacuums/',
+        articleLabel: 'Best Budget Robot Vacuums',
+        priorities: ['cleaning']
+      },
+      {
+        name: 'TP-Link Kasa Smart Plug (4-pack)',
+        price: 23,
+        desc: 'Great value 4-pack to automate multiple rooms at once.',
+        category: 'plug',
+        articleUrl: '/best-smart-plugs/',
+        articleLabel: 'Best Budget Smart Plugs',
+        priorities: ['convenience', 'energy']
+      },
+      {
+        name: 'Govee RGBIC Light Strip (16ft)',
+        price: 15,
+        desc: 'Multicolor light strip with segmented control for ambient lighting.',
+        category: 'bulb',
+        articleUrl: '/best-smart-bulbs/',
+        articleLabel: 'Best Budget Smart Bulbs',
+        priorities: ['entertainment', 'convenience']
+      },
+      {
+        name: 'Blink Mini Indoor Camera',
+        price: 20,
+        desc: 'Affordable 1080p indoor camera with motion detection and two-way audio.',
+        category: 'camera',
+        articleUrl: '/best-security-cameras/',
+        articleLabel: 'Best Budget Security Cameras',
+        priorities: ['security']
+      },
+      {
+        name: 'Echo Pop',
+        price: 18,
+        desc: 'Ultra-affordable Alexa speaker for voice control in every room.',
+        category: 'speaker',
+        articleUrl: '/best-smart-speakers/',
+        articleLabel: 'Best Budget Smart Speakers',
+        priorities: ['entertainment', 'convenience']
+      },
+      {
+        name: 'Wyze Cam Pan v3',
+        price: 34,
+        desc: '360-degree pan and tilt with motion tracking and color night vision.',
+        category: 'camera',
+        articleUrl: '/best-security-cameras/',
+        articleLabel: 'Best Budget Security Cameras',
+        priorities: ['security']
+      },
+      {
+        name: 'Govee Smart Bulbs (4-pack)',
+        price: 22,
+        desc: 'Four-pack of color-changing Wi-Fi bulbs for whole-room smart lighting.',
+        category: 'bulb',
+        articleUrl: '/best-smart-bulbs/',
+        articleLabel: 'Best Budget Smart Bulbs',
+        priorities: ['convenience', 'energy']
+      }
+    ];
+
+    /* ============================================================
+       STATE
+    ============================================================ */
+    let budget = 0;
+    let priorities = [];
+
+    /* ============================================================
+       DOM ELEMENTS
+    ============================================================ */
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const budgetInput = document.getElementById('budgetInput');
+    const toStep2Btn = document.getElementById('toStep2');
+    const backTo1Btn = document.getElementById('backTo1');
+    const getResultsBtn = document.getElementById('getResults');
+    const startOverBtn = document.getElementById('startOver');
+    const presetBtns = document.querySelectorAll('.preset-btn');
+    const priorityOptions = document.querySelectorAll('.priority-option');
+
+    /* ============================================================
+       STEP NAVIGATION
+    ============================================================ */
+    function showStep(stepEl) {
+      [step1, step2, step3].forEach(function(s) { s.classList.remove('active'); });
+      stepEl.classList.add('active');
+      stepEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ============================================================
+       STEP 1: Budget Input
+    ============================================================ */
+    function updateBudgetState() {
+      var val = parseInt(budgetInput.value, 10);
+      if (val > 0) {
+        budget = val;
+        toStep2Btn.disabled = false;
+      } else {
+        budget = 0;
+        toStep2Btn.disabled = true;
+      }
+      // Update preset highlight
+      presetBtns.forEach(function(btn) {
+        btn.classList.toggle('selected', parseInt(btn.dataset.amount, 10) === budget);
+      });
+    }
+
+    presetBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        budgetInput.value = btn.dataset.amount;
+        updateBudgetState();
+      });
+    });
+
+    budgetInput.addEventListener('input', updateBudgetState);
+
+    toStep2Btn.addEventListener('click', function() {
+      if (budget > 0) showStep(step2);
+    });
+
+    /* ============================================================
+       STEP 2: Priority Selection
+    ============================================================ */
+    priorityOptions.forEach(function(opt) {
+      opt.addEventListener('click', function(e) {
+        e.preventDefault();
+        var cb = opt.querySelector('input[type="checkbox"]');
+        cb.checked = !cb.checked;
+        opt.classList.toggle('checked', cb.checked);
+      });
+    });
+
+    backTo1Btn.addEventListener('click', function() {
+      showStep(step1);
+    });
+
+    getResultsBtn.addEventListener('click', function() {
+      // Gather selected priorities
+      priorities = [];
+      priorityOptions.forEach(function(opt) {
+        var cb = opt.querySelector('input[type="checkbox"]');
+        if (cb.checked) priorities.push(cb.value);
+      });
+      generateResults();
+      showStep(step3);
+    });
+
+    /* ============================================================
+       STEP 3: Results Generation
+    ============================================================ */
+    function generateResults() {
+      var selected = selectProducts(budget, priorities);
+      renderResults(selected);
+    }
+
+    function selectProducts(budget, priorities) {
+      /*
+        Strategy:
+        1. Score each product based on priority overlap
+        2. Determine target count based on budget tier
+        3. Pick highest-scored products that fit in budget
+        4. Ensure category diversity (avoid too many of one type)
+      */
+
+      // Determine target product count based on budget
+      var targetCount;
+      if (budget < 50) {
+        targetCount = 2;
+      } else if (budget <= 100) {
+        targetCount = 4;
+      } else if (budget <= 150) {
+        targetCount = 5;
+      } else if (budget <= 200) {
+        targetCount = 6;
+      } else {
+        targetCount = 7;
+      }
+
+      // Score products
+      var scored = PRODUCTS.map(function(p) {
+        var score = 0;
+        // Priority match score (0-5 scale)
+        if (priorities.length > 0) {
+          p.priorities.forEach(function(pp) {
+            if (priorities.indexOf(pp) !== -1) score += 3;
+          });
+        } else {
+          // No priorities selected: give base score to essentials
+          if (p.category === 'plug') score += 2;
+          if (p.category === 'bulb') score += 2;
+          if (p.category === 'speaker') score += 1;
+        }
+
+        // Budget-fit bonus: cheaper items get a slight boost for low budgets
+        if (budget < 75) {
+          score += (50 - Math.min(p.price, 50)) / 10;
+        }
+
+        // Penalize expensive items for low budgets
+        if (p.price > budget * 0.7) score -= 2;
+
+        return { product: p, score: score };
+      });
+
+      // Sort by score descending
+      scored.sort(function(a, b) { return b.score - a.score; });
+
+      // Greedily pick products within budget, ensuring diversity
+      var chosen = [];
+      var totalCost = 0;
+      var categoryCounts = {};
+
+      for (var i = 0; i < scored.length && chosen.length < targetCount; i++) {
+        var item = scored[i];
+        var p = item.product;
+        var cat = p.category;
+
+        // Skip if adding this goes over budget
+        if (totalCost + p.price > budget) continue;
+
+        // Skip duplicate categories unless we've gone through all categories
+        var catCount = categoryCounts[cat] || 0;
+        if (catCount >= 1 && chosen.length < 5) {
+          // Allow second of same category only after we've tried all categories
+          var remainingNew = scored.slice(i + 1).some(function(s) {
+            return (categoryCounts[s.product.category] || 0) === 0 && totalCost + s.product.price <= budget;
+          });
+          if (remainingNew) continue;
+        }
+        if (catCount >= 2) continue;
+
+        chosen.push(p);
+        totalCost += p.price;
+        categoryCounts[cat] = catCount + 1;
+      }
+
+      // If we have remaining budget and didn't hit target, try adding more
+      for (var j = 0; j < scored.length && chosen.length < targetCount; j++) {
+        var p2 = scored[j].product;
+        if (chosen.indexOf(p2) !== -1) continue;
+        if (totalCost + p2.price > budget) continue;
+        chosen.push(p2);
+        totalCost += p2.price;
+      }
+
+      return chosen;
+    }
+
+    function renderResults(products) {
+      var totalCost = products.reduce(function(sum, p) { return sum + p.price; }, 0);
+      var remaining = budget - totalCost;
+      var pct = Math.min(Math.round((totalCost / budget) * 100), 100);
+
+      // Update summary
+      document.getElementById('totalCost').textContent = '$' + totalCost;
+      document.getElementById('budgetRemaining').textContent = '$' + remaining;
+
+      // Update bar
+      document.getElementById('barUsedLabel').textContent = '$' + totalCost + ' used';
+      document.getElementById('barBudgetLabel').textContent = '$' + budget + ' budget';
+      var barFill = document.getElementById('budgetBarFill');
+      barFill.style.width = pct + '%';
+      barFill.classList.toggle('over-budget', remaining < 0);
+
+      // Heading
+      var heading = document.getElementById('resultsHeading');
+      var subtext = document.getElementById('resultsSubtext');
+      if (products.length === 0) {
+        heading.textContent = 'Hmm, that\'s a tight budget';
+        subtext.textContent = 'Try increasing your budget to at least $25 for our most affordable recommendations.';
+      } else if (remaining > 30) {
+        heading.textContent = 'Great setup with room to spare!';
+        subtext.textContent = 'You have $' + remaining + ' left \u2014 consider adding another device from our guides.';
+      } else {
+        heading.textContent = 'Here\u2019s your personalized smart home plan';
+        subtext.textContent = 'We picked ' + products.length + ' device' + (products.length > 1 ? 's' : '') + ' that fit your $' + budget + ' budget.';
+      }
+
+      // Render product cards
+      var container = document.getElementById('productResults');
+      container.innerHTML = '';
+
+      products.forEach(function(p) {
+        var card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML =
+          '<div class="result-card-info">' +
+            '<h3>' + escapeHtml(p.name) + '</h3>' +
+            '<p class="rc-desc">' + escapeHtml(p.desc) + '</p>' +
+            '<p class="rc-article">From: <a href="' + p.articleUrl + '">' + escapeHtml(p.articleLabel) + '</a></p>' +
+          '</div>' +
+          '<div class="result-card-price">' +
+            '<span class="price">$' + p.price + '</span>' +
+            '<a href="#affiliate" class="amazon-btn">Check Price on Amazon</a>' +
+          '</div>';
+        container.appendChild(card);
+      });
+    }
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
+    /* ============================================================
+       START OVER
+    ============================================================ */
+    startOverBtn.addEventListener('click', function() {
+      budget = 0;
+      priorities = [];
+      budgetInput.value = '';
+      toStep2Btn.disabled = true;
+      presetBtns.forEach(function(b) { b.classList.remove('selected'); });
+      priorityOptions.forEach(function(opt) {
+        opt.classList.remove('checked');
+        opt.querySelector('input[type="checkbox"]').checked = false;
+      });
+      document.getElementById('productResults').innerHTML = '';
+      showStep(step1);
+    });
+
+  })();
+  </script>
+</body>
+</html>

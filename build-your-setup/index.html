@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Your Smart Home Setup — Room by Room | SmartHomeBudget</title>
+  <meta name="description" content="Build your perfect smart home setup room by room. Pick the best budget devices for every space and see your total cost instantly. Free interactive smart home setup guide.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/build-your-setup/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Build Your Smart Home Setup — Room by Room | SmartHomeBudget">
+  <meta property="og:description" content="Interactive room-by-room smart home configurator. Pick budget-friendly devices for every room and see your total instantly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/build-your-setup/">
+
+  <!-- Schema.org WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SmartHomeBudget Room-by-Room Builder",
+    "url": "https://yourdomain.com/build-your-setup/",
+    "description": "Interactive smart home configurator that helps you build a budget-friendly setup room by room.",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SmartHomeBudget"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ===== BUILDER LAYOUT ===== */
+    .builder-hero {
+      background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+      color: #fff;
+      padding: 3rem 0 2.5rem;
+      text-align: center;
+    }
+    .builder-hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .builder-hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .builder-wrap {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2rem;
+      padding: 2rem 0 4rem;
+      align-items: start;
+    }
+
+    /* ===== ROOM SELECTOR ===== */
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .room-card {
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+    .room-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .room-card.active {
+      border-color: var(--color-primary);
+      background: #e8f0fe;
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.18);
+      transform: translateY(-2px);
+    }
+    .room-card .room-emoji {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 0.4rem;
+      line-height: 1;
+    }
+    .room-card .room-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--color-text);
+    }
+
+    /* ===== PRODUCT PANEL ===== */
+    .product-panel {
+      min-height: 200px;
+    }
+    .product-panel h2 {
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .product-panel h2 .room-emoji {
+      font-size: 1.5rem;
+    }
+    .product-list {
+      display: grid;
+      gap: 0.85rem;
+    }
+    .product-card {
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card.in-cart {
+      border-color: var(--color-accent);
+      background: #e6f4ea;
+    }
+    .product-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .product-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--color-text);
+    }
+    .product-price {
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1.1rem;
+      margin-left: 0.35rem;
+    }
+    .product-benefit {
+      font-size: 0.88rem;
+      color: var(--color-text-light);
+      margin-top: 0.15rem;
+      line-height: 1.4;
+    }
+    .product-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+    .btn-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 1.1rem;
+      border: 2px solid var(--color-primary);
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-toggle:hover {
+      background: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+    .btn-toggle.added {
+      background: #fff;
+      color: var(--color-warning);
+      border-color: var(--color-warning);
+    }
+    .btn-toggle.added:hover {
+      background: #fce8e6;
+    }
+    .product-review-link {
+      font-size: 0.78rem;
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .product-review-link:hover {
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--color-text-light);
+    }
+    .empty-state .empty-icon {
+      font-size: 3.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+      opacity: 0.5;
+    }
+    .empty-state p {
+      font-size: 1.05rem;
+    }
+
+    /* ===== CART SIDEBAR ===== */
+    .cart-sidebar {
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: sticky;
+      top: 1.5rem;
+    }
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+    .cart-header h2 {
+      font-size: 1.15rem;
+      margin: 0;
+    }
+    .cart-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 100px;
+      padding: 0 0.45rem;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cart-badge.bump {
+      transform: scale(1.35);
+    }
+
+    .cart-items {
+      list-style: none;
+      margin: 0 0 1rem;
+      padding: 0;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .cart-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.9rem;
+      animation: cartSlideIn 0.3s ease;
+    }
+    .cart-items li:last-child {
+      border-bottom: none;
+    }
+    .cart-item-name {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-right: 0.5rem;
+    }
+    .cart-item-price {
+      font-weight: 700;
+      color: var(--color-primary);
+      white-space: nowrap;
+    }
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: var(--color-text-light);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0 0 0 0.5rem;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .cart-item-remove:hover {
+      color: var(--color-warning);
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 1.5rem 0;
+      color: var(--color-text-light);
+      font-size: 0.92rem;
+    }
+    .cart-empty span {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 0.85rem 0;
+      border-top: 2px solid var(--color-text);
+      margin-top: 0.5rem;
+    }
+    .cart-total .total-price {
+      color: var(--color-primary);
+      font-size: 1.35rem;
+    }
+
+    .cart-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .btn-amazon {
+      display: block;
+      text-align: center;
+      padding: 0.8rem 1rem;
+      background: #ff9900;
+      color: #111;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .btn-amazon:hover {
+      background: #e68a00;
+      color: #111;
+    }
+    .btn-share {
+      display: block;
+      text-align: center;
+      padding: 0.7rem 1rem;
+      background: var(--color-bg-light);
+      color: var(--color-text);
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: var(--radius);
+      border: 2px solid var(--color-border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-share:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    .btn-share.copied {
+      background: #e6f4ea;
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes cartSlideIn {
+      from { opacity: 0; transform: translateX(12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .product-card {
+      animation: fadeInUp 0.3s ease both;
+    }
+    .product-card:nth-child(2) { animation-delay: 0.05s; }
+    .product-card:nth-child(3) { animation-delay: 0.1s; }
+    .product-card:nth-child(4) { animation-delay: 0.15s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .builder-wrap {
+        grid-template-columns: 1fr;
+      }
+      .cart-sidebar {
+        position: static;
+      }
+    }
+    @media (max-width: 600px) {
+      .room-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .builder-hero h1 {
+        font-size: 1.6rem;
+      }
+      .product-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+      .product-actions {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span>&#9889;</span> SmartHome<span>Budget</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+          <li><a href="/best-security-cameras/">Cameras</a></li>
+          <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+          <li><a href="/best-smart-speakers/">Speakers</a></li>
+          <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="builder-hero">
+    <div class="container">
+      <h1>Build Your Smart Home</h1>
+      <p>Select a room, pick your devices, and see exactly what your budget smart home will cost.</p>
+    </div>
+  </section>
+
+  <!-- BUILDER -->
+  <section class="container">
+    <div class="builder-wrap">
+
+      <!-- LEFT: ROOMS + PRODUCTS -->
+      <div class="builder-main">
+        <h2 style="font-size:1.1rem;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem;">Choose a Room</h2>
+        <div class="room-grid" id="roomGrid">
+          <button class="room-card" data-room="living-room" type="button">
+            <span class="room-emoji">&#x1F6CB;&#xFE0F;</span>
+            <span class="room-name">Living Room</span>
+          </button>
+          <button class="room-card" data-room="bedroom" type="button">
+            <span class="room-emoji">&#x1F6CF;&#xFE0F;</span>
+            <span class="room-name">Bedroom</span>
+          </button>
+          <button class="room-card" data-room="kitchen" type="button">
+            <span class="room-emoji">&#x1F373;</span>
+            <span class="room-name">Kitchen</span>
+          </button>
+          <button class="room-card" data-room="front-door" type="button">
+            <span class="room-emoji">&#x1F6AA;</span>
+            <span class="room-name">Front Door / Entry</span>
+          </button>
+          <button class="room-card" data-room="backyard" type="button">
+            <span class="room-emoji">&#x1F3E1;</span>
+            <span class="room-name">Backyard / Garage</span>
+          </button>
+          <button class="room-card" data-room="whole-home" type="button">
+            <span class="room-emoji">&#x1F3E0;</span>
+            <span class="room-name">Whole Home</span>
+          </button>
+        </div>
+
+        <!-- Product panel -->
+        <div class="product-panel" id="productPanel">
+          <div class="empty-state">
+            <span class="empty-icon">&#x1F3E0;</span>
+            <p>Select a room above to start building your smart home</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: CART SIDEBAR -->
+      <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+          <h2>Your Setup</h2>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </div>
+        <ul class="cart-items" id="cartItems">
+          <li class="cart-empty"><span>&#128722;</span>No devices added yet</li>
+        </ul>
+        <div class="cart-total" id="cartTotal" style="display:none;">
+          <span>Total</span>
+          <span class="total-price" id="totalPrice">$0</span>
+        </div>
+        <div class="cart-actions" id="cartActions" style="display:none;">
+          <a href="#affiliate" class="btn-amazon">View All on Amazon</a>
+          <button class="btn-share" id="btnShare" type="button">Share Your Setup</button>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-about">
+          <h3>SmartHomeBudget</h3>
+          <p>We help thousands of readers build their dream smart home without overspending. Our mission is to make smart home technology accessible to everyone.</p>
+        </div>
+        <div class="footer-links">
+          <h3>Guides</h3>
+          <ul>
+            <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+            <li><a href="/best-security-cameras/">Security Cameras</a></li>
+            <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+            <li><a href="/best-smart-speakers/">Smart Speakers</a></li>
+            <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Site</h3>
+          <ul>
+            <li><a href="/about/">About &amp; Disclosure</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SmartHomeBudget. All rights reserved. | <a href="/about/">Affiliate Disclosure</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    /* ===== DATA ===== */
+    var rooms = {
+      'living-room': {
+        name: 'Living Room',
+        emoji: '\uD83D\uDECB\uFE0F',
+        products: [
+          { id: 'lr-echo',   name: 'Echo Dot',            price: 28,  benefit: 'Voice control for your entire living room',     review: '/best-smart-speakers/' },
+          { id: 'lr-bulbs',  name: 'Smart Bulbs 4-pack',  price: 24,  benefit: 'Set the mood with 16 million colors',           review: '/best-smart-bulbs/' },
+          { id: 'lr-plug',   name: 'Smart Plug 2-pack',   price: 12,  benefit: 'Automate lamps, fans, and more',                review: '/best-smart-plugs/' },
+          { id: 'lr-vacuum', name: 'Robot Vacuum',         price: 100, benefit: 'Hands-free cleaning on a daily schedule',       review: '/best-robot-vacuums/' }
+        ]
+      },
+      'bedroom': {
+        name: 'Bedroom',
+        emoji: '\uD83D\uDECF\uFE0F',
+        products: [
+          { id: 'br-bulbs', name: 'Smart Bulbs 2-pack',  price: 12, benefit: 'Gentle sunrise wake-up routines',                review: '/best-smart-bulbs/' },
+          { id: 'br-plug',  name: 'Smart Plug',           price: 6,  benefit: 'Control your fan or charger remotely',           review: '/best-smart-plugs/' },
+          { id: 'br-echo',  name: 'Echo Pop',             price: 18, benefit: 'Compact speaker with Alexa built in',            review: '/best-smart-speakers/' }
+        ]
+      },
+      'kitchen': {
+        name: 'Kitchen',
+        emoji: '\uD83C\uDF73',
+        products: [
+          { id: 'ki-plug',    name: 'Smart Plug 2-pack', price: 12, benefit: 'Schedule your coffee maker and slow cooker',      review: '/best-smart-plugs/' },
+          { id: 'ki-speaker', name: 'Smart Speaker',      price: 28, benefit: 'Hands-free timers, recipes, and music',          review: '/best-smart-speakers/' },
+          { id: 'ki-bulb',    name: 'Smart Bulb',         price: 6,  benefit: 'Bright task lighting you can dim by voice',       review: '/best-smart-bulbs/' }
+        ]
+      },
+      'front-door': {
+        name: 'Front Door / Entry',
+        emoji: '\uD83D\uDEAA',
+        products: [
+          { id: 'fd-cam',  name: 'Security Camera',  price: 20, benefit: 'See who is at the door from anywhere',               review: '/best-security-cameras/' },
+          { id: 'fd-plug', name: 'Smart Plug',        price: 6,  benefit: 'Auto-turn porch light on at sunset',                 review: '/best-smart-plugs/' },
+          { id: 'fd-bulb', name: 'Smart Bulb',        price: 8,  benefit: 'Bright entry light you can control remotely',        review: '/best-smart-bulbs/' }
+        ]
+      },
+      'backyard': {
+        name: 'Backyard / Garage',
+        emoji: '\uD83C\uDFE1',
+        products: [
+          { id: 'by-cam',  name: 'Outdoor Camera',  price: 25, benefit: 'Weatherproof security with night vision',              review: '/best-security-cameras/' },
+          { id: 'by-plug', name: 'Smart Plug',       price: 8,  benefit: 'Automate holiday lights or garage devices',           review: '/best-smart-plugs/' }
+        ]
+      },
+      'whole-home': {
+        name: 'Whole Home',
+        emoji: '\uD83C\uDFE0',
+        products: [
+          { id: 'wh-vacuum', name: 'Robot Vacuum',       price: 100, benefit: 'Clean every room on autopilot',                  review: '/best-robot-vacuums/' },
+          { id: 'wh-echo',   name: 'Echo Dot',           price: 28,  benefit: 'Central voice hub for your smart home',          review: '/best-smart-speakers/' },
+          { id: 'wh-plug',   name: 'Smart Plug 4-pack',  price: 20,  benefit: 'Cover every room with smart outlets',            review: '/best-smart-plugs/' }
+        ]
+      }
+    };
+
+    /* ===== STATE ===== */
+    var cart = {};          // { productId: { name, price } }
+    var activeRoom = null;
+
+    /* ===== DOM REFS ===== */
+    var roomGrid     = document.getElementById('roomGrid');
+    var productPanel = document.getElementById('productPanel');
+    var cartItems    = document.getElementById('cartItems');
+    var cartBadge    = document.getElementById('cartBadge');
+    var cartTotal    = document.getElementById('cartTotal');
+    var totalPrice   = document.getElementById('totalPrice');
+    var cartActions  = document.getElementById('cartActions');
+    var btnShare     = document.getElementById('btnShare');
+
+    /* ===== ROOM SELECTION ===== */
+    roomGrid.addEventListener('click', function(e) {
+      var card = e.target.closest('.room-card');
+      if (!card) return;
+      var roomId = card.getAttribute('data-room');
+      selectRoom(roomId);
+    });
+
+    function selectRoom(roomId) {
+      activeRoom = roomId;
+      // Update active class
+      var cards = roomGrid.querySelectorAll('.room-card');
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].classList.toggle('active', cards[i].getAttribute('data-room') === roomId);
+      }
+      renderProducts(roomId);
+    }
+
+    /* ===== RENDER PRODUCTS ===== */
+    function renderProducts(roomId) {
+      var room = rooms[roomId];
+      if (!room) return;
+
+      var html = '<h2><span class="room-emoji">' + room.emoji + '</span> ' + room.name + ' Essentials</h2>';
+      html += '<div class="product-list">';
+
+      for (var i = 0; i < room.products.length; i++) {
+        var p = room.products[i];
+        var inCart = !!cart[p.id];
+        html += '<div class="product-card' + (inCart ? ' in-cart' : '') + '" data-id="' + p.id + '">';
+        html += '  <div class="product-info">';
+        html += '    <span class="product-name">' + p.name + '</span>';
+        html += '    <span class="product-price">$' + p.price + '</span>';
+        html += '    <div class="product-benefit">' + p.benefit + '</div>';
+        html += '  </div>';
+        html += '  <div class="product-actions">';
+        html += '    <button class="btn-toggle' + (inCart ? ' added' : '') + '" type="button" data-id="' + p.id + '" data-name="' + p.name + '" data-price="' + p.price + '">';
+        html += inCart ? '&#10005; Remove' : '&#43; Add';
+        html += '    </button>';
+        html += '    <a href="' + p.review + '" class="product-review-link">Read review</a>';
+        html += '  </div>';
+        html += '</div>';
+      }
+
+      html += '</div>';
+      productPanel.innerHTML = html;
+    }
+
+    /* ===== TOGGLE PRODUCT ===== */
+    productPanel.addEventListener('click', function(e) {
+      var btn = e.target.closest('.btn-toggle');
+      if (!btn) return;
+      var id    = btn.getAttribute('data-id');
+      var name  = btn.getAttribute('data-name');
+      var price = parseInt(btn.getAttribute('data-price'), 10);
+
+      if (cart[id]) {
+        delete cart[id];
+      } else {
+        cart[id] = { name: name, price: price };
+      }
+
+      // Re-render product panel for current room
+      if (activeRoom) renderProducts(activeRoom);
+      renderCart();
+    });
+
+    /* ===== RENDER CART ===== */
+    function renderCart() {
+      var keys = Object.keys(cart);
+      var count = keys.length;
+      var total = 0;
+
+      // Badge
+      cartBadge.textContent = count;
+      cartBadge.classList.add('bump');
+      setTimeout(function() { cartBadge.classList.remove('bump'); }, 300);
+
+      if (count === 0) {
+        cartItems.innerHTML = '<li class="cart-empty"><span>&#128722;</span>No devices added yet</li>';
+        cartTotal.style.display = 'none';
+        cartActions.style.display = 'none';
+        return;
+      }
+
+      var html = '';
+      for (var i = 0; i < keys.length; i++) {
+        var item = cart[keys[i]];
+        total += item.price;
+        html += '<li>';
+        html += '  <span class="cart-item-name">' + item.name + '</span>';
+        html += '  <span class="cart-item-price">$' + item.price + '</span>';
+        html += '  <button class="cart-item-remove" data-id="' + keys[i] + '" type="button" aria-label="Remove ' + item.name + '">&times;</button>';
+        html += '</li>';
+      }
+
+      cartItems.innerHTML = html;
+      totalPrice.textContent = '$' + total;
+      cartTotal.style.display = 'flex';
+      cartActions.style.display = 'flex';
+    }
+
+    /* ===== REMOVE FROM CART VIA SIDEBAR ===== */
+    cartItems.addEventListener('click', function(e) {
+      var btn = e.target.closest('.cart-item-remove');
+      if (!btn) return;
+      var id = btn.getAttribute('data-id');
+      delete cart[id];
+      if (activeRoom) renderProducts(activeRoom);
+      renderCart();
+    });
+
+    /* ===== SHARE SETUP ===== */
+    btnShare.addEventListener('click', function() {
+      var keys = Object.keys(cart);
+      if (keys.length === 0) return;
+
+      var total = 0;
+      var lines = ['My SmartHomeBudget Setup:', ''];
+      for (var i = 0; i < keys.length; i++) {
+        var item = cart[keys[i]];
+        total += item.price;
+        lines.push('- ' + item.name + ' — $' + item.price);
+      }
+      lines.push('');
+      lines.push('Total: $' + total);
+      lines.push('');
+      lines.push('Build yours at SmartHomeBudget.com/build-your-setup/');
+
+      var text = lines.join('\n');
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          showCopied();
+        }).catch(function() {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    });
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showCopied(); } catch(e) {}
+      document.body.removeChild(ta);
+    }
+
+    function showCopied() {
+      btnShare.textContent = 'Copied to Clipboard!';
+      btnShare.classList.add('copied');
+      setTimeout(function() {
+        btnShare.textContent = 'Share Your Setup';
+        btnShare.classList.remove('copied');
+      }, 2000);
+    }
+
+  })();
+  </script>
+</body>
+</html>

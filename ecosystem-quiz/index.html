@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Which Smart Home Ecosystem Is Right for You? Free Quiz | SmartHomeBudget</title>
+  <meta name="description" content="Take our free smart home ecosystem quiz to find out if Alexa, Google Home, or Apple HomeKit is the best fit for you. Compare ecosystems in under 2 minutes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yourdomain.com/ecosystem-quiz/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Which Smart Home Ecosystem Is Right for You? Free Quiz">
+  <meta property="og:description" content="Alexa vs Google Home vs Apple HomeKit — take our 7-question quiz to discover which smart home ecosystem matches your lifestyle and budget.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com/ecosystem-quiz/">
+
+  <!-- Schema.org WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Smart Home Ecosystem Quiz",
+    "description": "An interactive quiz that helps users determine whether Amazon Alexa, Google Home, or Apple HomeKit is the best smart home ecosystem for their needs and budget.",
+    "url": "https://yourdomain.com/ecosystem-quiz/",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "SmartHomeBudget",
+      "url": "https://yourdomain.com/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ===== QUIZ STYLES ===== */
+    .quiz-hero {
+      background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+      color: #fff;
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+    .quiz-hero h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .quiz-hero p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .quiz-wrapper {
+      max-width: 700px;
+      margin: -2rem auto 3rem;
+      padding: 0 1.25rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Progress Bar */
+    .quiz-progress {
+      background: #fff;
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding: 1.25rem 1.5rem 1rem;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .quiz-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .quiz-progress-bar {
+      height: 8px;
+      background: var(--color-bg-light);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1a73e8, #34a853);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* Quiz Card */
+    .quiz-card {
+      background: #fff;
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 2rem 1.5rem 2.5rem;
+      min-height: 380px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Question Screens */
+    .quiz-question {
+      display: none;
+      animation: quizFadeIn 0.4s ease;
+    }
+    .quiz-question.active {
+      display: block;
+    }
+    @keyframes quizFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quiz-question h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.4rem;
+      color: var(--color-text);
+    }
+    .quiz-question .question-number {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-primary);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text);
+      background: #fff;
+      text-align: left;
+      width: 100%;
+      font-family: inherit;
+      line-height: 1.4;
+    }
+    .quiz-option:hover {
+      border-color: var(--color-primary);
+      background: #f0f6ff;
+      transform: translateX(4px);
+    }
+    .quiz-option:active {
+      transform: scale(0.98);
+    }
+    .quiz-option .option-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      width: 2rem;
+      text-align: center;
+    }
+    .quiz-option.selected {
+      border-color: var(--color-primary);
+      background: #e8f0fe;
+    }
+
+    /* Results Screen */
+    .quiz-results {
+      display: none;
+      animation: quizFadeIn 0.5s ease;
+      text-align: center;
+    }
+    .quiz-results.active {
+      display: block;
+    }
+
+    .result-crown {
+      font-size: 3rem;
+      margin-bottom: 0.25rem;
+    }
+    .result-ecosystem {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+    .result-ecosystem.alexa { color: #00a8e1; }
+    .result-ecosystem.google { color: #34a853; }
+    .result-ecosystem.apple { color: #555; }
+
+    .result-subtitle {
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    /* Percentage Bars */
+    .result-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .result-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .result-bar-label {
+      width: 90px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .result-bar-track {
+      flex: 1;
+      height: 28px;
+      background: var(--color-bg-light);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .result-bar-fill {
+      height: 100%;
+      border-radius: 14px;
+      transition: width 1s ease;
+      width: 0%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      min-width: 50px;
+    }
+    .result-bar-fill.alexa { background: linear-gradient(90deg, #00a8e1, #0077b6); }
+    .result-bar-fill.google { background: linear-gradient(90deg, #34a853, #1e8e3e); }
+    .result-bar-fill.apple { background: linear-gradient(90deg, #888, #555); }
+
+    .result-bar-fill.winner {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    /* Why Section */
+    .result-why {
+      text-align: left;
+      background: var(--color-bg-light);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .result-why h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-text);
+    }
+    .result-why ul {
+      list-style: none;
+      padding: 0;
+    }
+    .result-why li {
+      padding: 0.35rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+      line-height: 1.5;
+    }
+    .result-why li::before {
+      content: "\2714";
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+
+    /* Recommended Products */
+    .result-products {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+    .result-products h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .result-product-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .result-product-info h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.15rem;
+    }
+    .result-product-info p {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+    }
+    .result-product-info a {
+      font-size: 0.8rem;
+    }
+    .result-product-btn {
+      display: inline-block;
+      background: #ff9900;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .result-product-btn:hover {
+      background: #e68a00;
+      color: #fff;
+    }
+
+    /* Retake Button */
+    .quiz-retake-btn {
+      display: inline-block;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      font-family: inherit;
+      margin-top: 0.5rem;
+    }
+    .quiz-retake-btn:hover {
+      background: var(--color-primary-dark);
+      color: #fff;
+    }
+    .quiz-retake-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Start Screen */
+    .quiz-start {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .quiz-start .start-icon {
+      font-size: 3.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .quiz-start h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .quiz-start p {
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .quiz-start-btn {
+      display: inline-block;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.9rem 2.5rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      font-family: inherit;
+    }
+    .quiz-start-btn:hover {
+      background: var(--color-primary-dark);
+      color: #fff;
+    }
+    .quiz-start-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Confetti animation */
+    @keyframes confettiFall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(60px) rotate(360deg); opacity: 0; }
+    }
+    .confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      animation: confettiFall 1.5s ease forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .quiz-hero h1 { font-size: 1.5rem; }
+      .quiz-card { padding: 1.5rem 1rem 2rem; min-height: 320px; }
+      .quiz-question h2 { font-size: 1.15rem; }
+      .result-ecosystem { font-size: 1.6rem; }
+      .result-product-card { flex-direction: column; align-items: flex-start; }
+      .result-bar-label { width: 70px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span>&#9889;</span> SmartHome<span>Budget</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+          <li><a href="/best-security-cameras/">Cameras</a></li>
+          <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+          <li><a href="/best-smart-speakers/">Speakers</a></li>
+          <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- QUIZ HERO -->
+  <section class="quiz-hero">
+    <div class="container">
+      <h1>Which Smart Home Ecosystem Is Right for You?</h1>
+      <p>Answer 7 quick questions and we'll match you with the perfect platform for your home, budget, and lifestyle.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <div class="quiz-wrapper">
+
+    <!-- Progress Bar -->
+    <div class="quiz-progress" id="quizProgress" style="display:none;">
+      <div class="quiz-progress-label">
+        <span id="progressText">Question 1 of 7</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Quiz Card -->
+    <div class="quiz-card" id="quizCard">
+
+      <!-- Start Screen -->
+      <div class="quiz-start active" id="quizStart">
+        <div class="start-icon">&#127968;</div>
+        <h2>Ready to Find Your Perfect Match?</h2>
+        <p>Amazon Alexa, Google Home, and Apple HomeKit each have strengths. This 2-minute quiz will help you figure out which one fits your life best.</p>
+        <button class="quiz-start-btn" onclick="startQuiz()">Start the Quiz</button>
+      </div>
+
+      <!-- Question 1 -->
+      <div class="quiz-question" id="q1">
+        <div class="question-number">Question 1 of 7</div>
+        <h2>What phone do you use?</h2>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answer(1, 'iphone')">
+            <span class="option-icon">&#127823;</span> iPhone
+          </button>
+          <button class="quiz-option" onclick="answer(1, 'android')">
+            <span class="option-icon">&#129302;</span> Android
+          </button>
+          <button class="quiz-option" onclick="answer(1, 'both')">
+            <span class="option-icon">&#128241;</span> I use both
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="quiz-question" id="q2">
+        <div class="question-number">Question 2 of 7</div>
+        <h2>What's your budget for a smart speaker?</h2>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answer(2, 'under25')">
+            <span class="option-icon">&#128176;</span> Under $25
+          </button>
+          <button class="quiz-option" onclick="answer(2, 'mid')">
+            <span class="option-icon">&#128178;</span> $25 &ndash; $50
+          </button>
+          <button class="quiz-option" onclick="answer(2, 'over50')">
+            <span class="option-icon">&#128179;</span> $50+
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="quiz-question" id="q3">
+        <div class="question-number">Question 3 of 7</div>
+        <h2>How important is privacy to you?</h2>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answer(3, 'very')">
+            <span class="option-icon">&#128274;</span> Very important
+          </button>
+          <button class="quiz-option" onclick="answer(3, 'somewhat')">
+            <span class="option-icon">&#128275;</span> Somewhat important
+          </button>
+          <button class="quiz-option" onclick="answer(3, 'not')">
+            <span class="option-icon">&#128276;</span> Not a priority
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="quiz-question" id="q4">
+        <div class="question-number">Question 4 of 7</div>
+        <h2>Do you want your smart home to work with the most devices?</h2>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answer(4, 'compatibility')">
+            <span class="option-icon">&#128279;</span> Yes, compatibility is key
+          </button>
+          <button class="quiz-option" onclick="answer(4, 'quality')">
+            <span class="option-icon">&#11088;</span> I prefer quality over quantity
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="quiz-question" id="q5">
+        <div class="question-number">Question 5 of 7</div>
+        <h2>What's your main use case?</h2>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answer(5, 'voice')">
+            <span class="option-icon">&#127908;</span> Voice control
+          </button>
+          <button class="quiz-option" onclick="answer(5, 'security')">
+            <span class="option-icon">&#128247;</span> Security
+          </button>
+          <button class="quiz-option" onclick="answer(5, 'entertainment')">
+            <span class="option-icon">&#127910;</span> Entertainment
+          </button>
+          <button class="quiz-option" onclick="answer(5, 'automation')">
+            <span class="option-icon">&#9881;</span> Automation
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="quiz-question" id="q6">
+        <div class="question-number">Question 6 of 7</div>
+        <h2>Do you already own any smart home devices?</h2>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answer(6, 'alexa')">
+            <span class="option-icon">&#128316;</span> Amazon Echo / Alexa devices
+          </button>
+          <button class="quiz-option" onclick="answer(6, 'google')">
+            <span class="option-icon">&#128313;</span> Google Nest devices
+          </button>
+          <button class="quiz-option" onclick="answer(6, 'apple')">
+            <span class="option-icon">&#11036;</span> Apple HomePod
+          </button>
+          <button class="quiz-option" onclick="answer(6, 'none')">
+            <span class="option-icon">&#10024;</span> None yet
+          </button>
+        </div>
+      </div>
+
+      <!-- Question 7 -->
+      <div class="quiz-question" id="q7">
+        <div class="question-number">Question 7 of 7</div>
+        <h2>How tech-savvy are you?</h2>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="answer(7, 'tinker')">
+            <span class="option-icon">&#128295;</span> I love tinkering with tech
+          </button>
+          <button class="quiz-option" onclick="answer(7, 'justwork')">
+            <span class="option-icon">&#128076;</span> I want it to just work
+          </button>
+          <button class="quiz-option" onclick="answer(7, 'between')">
+            <span class="option-icon">&#128260;</span> Somewhere in between
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Screen -->
+      <div class="quiz-results" id="quizResults">
+        <div class="confetti-container" id="confetti"></div>
+        <div class="result-crown" id="resultIcon"></div>
+        <div class="result-ecosystem" id="resultTitle"></div>
+        <div class="result-subtitle" id="resultSubtitle"></div>
+
+        <div class="result-bars" id="resultBars"></div>
+
+        <div class="result-why" id="resultWhy">
+          <h3>Why this ecosystem fits you:</h3>
+          <ul id="resultWhyList"></ul>
+        </div>
+
+        <div class="result-products" id="resultProducts">
+          <h3>Recommended Starter Products</h3>
+          <div id="resultProductCards"></div>
+        </div>
+
+        <button class="quiz-retake-btn" onclick="retakeQuiz()">&#x21bb; Retake Quiz</button>
+      </div>
+
+    </div><!-- /quiz-card -->
+  </div><!-- /quiz-wrapper -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-about">
+          <h3>SmartHomeBudget</h3>
+          <p>We help thousands of readers build their dream smart home without overspending. Our mission is to make smart home technology accessible to everyone.</p>
+        </div>
+        <div class="footer-links">
+          <h3>Guides</h3>
+          <ul>
+            <li><a href="/best-smart-plugs/">Smart Plugs</a></li>
+            <li><a href="/best-security-cameras/">Security Cameras</a></li>
+            <li><a href="/best-smart-bulbs/">Smart Bulbs</a></li>
+            <li><a href="/best-smart-speakers/">Smart Speakers</a></li>
+            <li><a href="/best-robot-vacuums/">Robot Vacuums</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Site</h3>
+          <ul>
+            <li><a href="/about/">About &amp; Disclosure</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SmartHomeBudget. All rights reserved. | <a href="/about/">Affiliate Disclosure</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+
+  <script>
+  /* ===== QUIZ ENGINE ===== */
+  (function() {
+    'use strict';
+
+    var scores = { alexa: 0, google: 0, apple: 0 };
+    var currentQ = 0;
+    var totalQ = 7;
+
+    /* --- Start Quiz --- */
+    window.startQuiz = function() {
+      document.getElementById('quizStart').classList.remove('active');
+      document.getElementById('quizStart').style.display = 'none';
+      document.getElementById('quizProgress').style.display = 'block';
+      showQuestion(1);
+    };
+
+    /* --- Answer Handler --- */
+    window.answer = function(qNum, value) {
+      applyScoring(qNum, value);
+      if (qNum < totalQ) {
+        hideQuestion(qNum, function() {
+          showQuestion(qNum + 1);
+        });
+      } else {
+        hideQuestion(qNum, function() {
+          showResults();
+        });
+      }
+    };
+
+    /* --- Scoring Logic --- */
+    function applyScoring(q, val) {
+      switch(q) {
+        case 1:
+          if (val === 'iphone') { scores.apple += 2; }
+          else if (val === 'android') { scores.google += 2; }
+          else { scores.alexa += 1; scores.google += 1; scores.apple += 1; }
+          break;
+        case 2:
+          if (val === 'under25') { scores.alexa += 2; scores.google += 1; }
+          else if (val === 'mid') { scores.alexa += 1; scores.google += 1; scores.apple += 1; }
+          else { scores.apple += 2; }
+          break;
+        case 3:
+          if (val === 'very') { scores.apple += 3; }
+          else if (val === 'somewhat') { scores.google += 1; scores.apple += 1; }
+          else { scores.alexa += 2; scores.google += 1; }
+          break;
+        case 4:
+          if (val === 'compatibility') { scores.alexa += 2; scores.google += 1; }
+          else { scores.apple += 2; }
+          break;
+        case 5:
+          if (val === 'voice') { scores.alexa += 1; }
+          else if (val === 'security') { scores.google += 1; scores.apple += 1; }
+          else if (val === 'entertainment') { scores.alexa += 1; scores.google += 1; }
+          else { scores.google += 1; }
+          break;
+        case 6:
+          if (val === 'alexa') { scores.alexa += 3; }
+          else if (val === 'google') { scores.google += 3; }
+          else if (val === 'apple') { scores.apple += 3; }
+          break;
+        case 7:
+          if (val === 'tinker') { scores.google += 1; }
+          else if (val === 'justwork') { scores.apple += 2; }
+          else { scores.alexa += 1; }
+          break;
+      }
+    }
+
+    /* --- Show / Hide Questions --- */
+    function showQuestion(num) {
+      currentQ = num;
+      updateProgress(num);
+      var el = document.getElementById('q' + num);
+      el.style.display = 'block';
+      el.classList.add('active');
+    }
+
+    function hideQuestion(num, callback) {
+      var el = document.getElementById('q' + num);
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-12px)';
+      el.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      setTimeout(function() {
+        el.classList.remove('active');
+        el.style.display = 'none';
+        el.style.opacity = '';
+        el.style.transform = '';
+        el.style.transition = '';
+        callback();
+      }, 250);
+    }
+
+    function updateProgress(num) {
+      var pct = Math.round(((num - 1) / totalQ) * 100);
+      document.getElementById('progressText').textContent = 'Question ' + num + ' of ' + totalQ;
+      document.getElementById('progressPercent').textContent = pct + '%';
+      document.getElementById('progressFill').style.width = pct + '%';
+    }
+
+    /* --- Results --- */
+    function showResults() {
+      document.getElementById('quizProgress').style.display = 'none';
+
+      var total = scores.alexa + scores.google + scores.apple;
+      if (total === 0) total = 1;
+
+      var pctAlexa = Math.round((scores.alexa / total) * 100);
+      var pctGoogle = Math.round((scores.google / total) * 100);
+      var pctApple = Math.round((scores.apple / total) * 100);
+
+      var winner = 'alexa';
+      if (scores.google > scores.alexa && scores.google >= scores.apple) winner = 'google';
+      if (scores.apple > scores.alexa && scores.apple > scores.google) winner = 'apple';
+
+      var names = { alexa: 'Amazon Alexa', google: 'Google Home', apple: 'Apple HomeKit' };
+      var icons = { alexa: '\uD83D\uDCA0', google: '\uD83C\uDFE0', apple: '\uD83C\uDF4F' };
+      var subtitles = {
+        alexa: 'The most versatile and budget-friendly ecosystem',
+        google: 'The smartest ecosystem with the best AI integration',
+        apple: 'The most private and seamlessly integrated ecosystem'
+      };
+
+      document.getElementById('resultIcon').textContent = icons[winner];
+      document.getElementById('resultTitle').textContent = names[winner];
+      document.getElementById('resultTitle').className = 'result-ecosystem ' + winner;
+      document.getElementById('resultSubtitle').textContent = subtitles[winner];
+
+      // Bars
+      var barsHTML = '';
+      var barData = [
+        { key: 'alexa', label: 'Alexa', pct: pctAlexa },
+        { key: 'google', label: 'Google', pct: pctGoogle },
+        { key: 'apple', label: 'Apple', pct: pctApple }
+      ];
+      barData.sort(function(a, b) { return b.pct - a.pct; });
+      for (var i = 0; i < barData.length; i++) {
+        var b = barData[i];
+        var winnerClass = b.key === winner ? ' winner' : '';
+        barsHTML += '<div class="result-bar-row">' +
+          '<div class="result-bar-label">' + b.label + '</div>' +
+          '<div class="result-bar-track">' +
+          '<div class="result-bar-fill ' + b.key + winnerClass + '" data-width="' + b.pct + '" style="width:0%">' +
+          b.pct + '%</div></div></div>';
+      }
+      document.getElementById('resultBars').innerHTML = barsHTML;
+
+      // Why bullets
+      document.getElementById('resultWhyList').innerHTML = getWhyBullets(winner);
+
+      // Recommended products
+      document.getElementById('resultProductCards').innerHTML = getProducts(winner);
+
+      // Show results
+      var resultsEl = document.getElementById('quizResults');
+      resultsEl.style.display = 'block';
+      resultsEl.classList.add('active');
+
+      // Animate bars after a beat
+      setTimeout(function() {
+        var fills = document.querySelectorAll('.result-bar-fill');
+        for (var j = 0; j < fills.length; j++) {
+          fills[j].style.width = fills[j].getAttribute('data-width') + '%';
+        }
+      }, 100);
+
+      // Confetti
+      spawnConfetti();
+
+      // Scroll to top of results
+      document.querySelector('.quiz-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function getWhyBullets(eco) {
+      var bullets = {
+        alexa: [
+          'Alexa has the largest library of compatible smart home devices, giving you maximum flexibility.',
+          'Amazon Echo devices start as low as $20, making it the most budget-friendly way to get started.',
+          'Alexa Skills let you add thousands of capabilities from third-party developers.',
+          'With routines and groups, you can automate nearly anything without extra hubs or apps.'
+        ],
+        google: [
+          'Google Assistant has the best natural language understanding, so commands feel more conversational.',
+          'Tight integration with YouTube, Chromecast, and Android makes entertainment seamless.',
+          'Google Nest devices offer excellent security features with intelligent alerts and camera integration.',
+          'Routines and smart scheduling powered by Google AI make home automation more intelligent.'
+        ],
+        apple: [
+          'HomeKit processes automations locally on your devices, keeping your data private and secure.',
+          'If you already use an iPhone, iPad, and Mac, everything connects instantly with zero friction.',
+          'HomeKit devices go through strict Apple certification, ensuring consistent quality and reliability.',
+          'Siri Shortcuts and automation scenes let you control your entire home with one tap or voice command.'
+        ]
+      };
+      var html = '';
+      var items = bullets[eco];
+      for (var i = 0; i < items.length; i++) {
+        html += '<li>' + items[i] + '</li>';
+      }
+      return html;
+    }
+
+    function getProducts(eco) {
+      var products = {
+        alexa: [
+          {
+            name: 'Amazon Echo Dot (5th Gen)',
+            desc: 'Best budget smart speaker to start with Alexa.',
+            guide: '/best-smart-speakers/',
+            guideLabel: 'See our Smart Speakers guide'
+          },
+          {
+            name: 'Kasa Smart Plug Mini (4-pack)',
+            desc: 'Affordable plugs with reliable Alexa support.',
+            guide: '/best-smart-plugs/',
+            guideLabel: 'See our Smart Plugs guide'
+          },
+          {
+            name: 'Wyze Cam v3',
+            desc: 'Budget security camera with Alexa integration.',
+            guide: '/best-security-cameras/',
+            guideLabel: 'See our Security Cameras guide'
+          }
+        ],
+        google: [
+          {
+            name: 'Google Nest Mini (2nd Gen)',
+            desc: 'Compact, affordable speaker with Google Assistant.',
+            guide: '/best-smart-speakers/',
+            guideLabel: 'See our Smart Speakers guide'
+          },
+          {
+            name: 'TP-Link Tapo Smart Plug',
+            desc: 'Budget-friendly plug with solid Google Home support.',
+            guide: '/best-smart-plugs/',
+            guideLabel: 'See our Smart Plugs guide'
+          },
+          {
+            name: 'Wyze Bulb Color (4-pack)',
+            desc: 'Colorful smart bulbs with Google Home support.',
+            guide: '/best-smart-bulbs/',
+            guideLabel: 'See our Smart Bulbs guide'
+          }
+        ],
+        apple: [
+          {
+            name: 'Apple HomePod Mini',
+            desc: 'The HomeKit hub and speaker in one compact package.',
+            guide: '/best-smart-speakers/',
+            guideLabel: 'See our Smart Speakers guide'
+          },
+          {
+            name: 'Meross Smart Plug (HomeKit)',
+            desc: 'One of the most affordable HomeKit-compatible plugs.',
+            guide: '/best-smart-plugs/',
+            guideLabel: 'See our Smart Plugs guide'
+          },
+          {
+            name: 'Eve Energy Smart Plug',
+            desc: 'Premium HomeKit plug with energy monitoring.',
+            guide: '/best-smart-plugs/',
+            guideLabel: 'See our Smart Plugs guide'
+          }
+        ]
+      };
+
+      var html = '';
+      var items = products[eco];
+      for (var i = 0; i < items.length; i++) {
+        var p = items[i];
+        html += '<div class="result-product-card">' +
+          '<div class="result-product-info">' +
+          '<h4>' + p.name + '</h4>' +
+          '<p>' + p.desc + '</p>' +
+          '<a href="' + p.guide + '">' + p.guideLabel + ' &rarr;</a>' +
+          '</div>' +
+          '<a href="' + p.guide + '" class="result-product-btn">Check Price on Amazon</a>' +
+          '</div>';
+      }
+      return html;
+    }
+
+    /* --- Confetti --- */
+    function spawnConfetti() {
+      var container = document.getElementById('confetti');
+      container.innerHTML = '';
+      var colors = ['#1a73e8', '#34a853', '#fbbc04', '#ea4335', '#00a8e1', '#ff9900'];
+      for (var i = 0; i < 30; i++) {
+        var piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.top = Math.random() * -20 + 'px';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = (Math.random() * 0.8) + 's';
+        piece.style.animationDuration = (1 + Math.random() * 1) + 's';
+        container.appendChild(piece);
+      }
+    }
+
+    /* --- Retake --- */
+    window.retakeQuiz = function() {
+      scores = { alexa: 0, google: 0, apple: 0 };
+      currentQ = 0;
+
+      document.getElementById('quizResults').classList.remove('active');
+      document.getElementById('quizResults').style.display = 'none';
+
+      document.getElementById('quizStart').style.display = '';
+      document.getElementById('quizStart').classList.add('active');
+
+      document.getElementById('quizProgress').style.display = 'none';
+      document.getElementById('progressFill').style.width = '0%';
+
+      document.querySelector('.quiz-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+  })();
+  </script>
+
+</body>
+</html>
