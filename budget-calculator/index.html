@@ -604,6 +604,7 @@
         category: 'plug',
         articleUrl: '/best-smart-plugs/',
         articleLabel: 'Best Budget Smart Plugs',
+        affiliateUrl: 'https://www.amazon.com/dp/B07RC1ZYKT?tag=smarthomebu0d-20',
         priorities: ['convenience', 'energy']
       },
       {
@@ -613,6 +614,7 @@
         category: 'bulb',
         articleUrl: '/best-smart-bulbs/',
         articleLabel: 'Best Budget Smart Bulbs',
+        affiliateUrl: 'https://www.amazon.com/dp/B09B8V7Q3K?tag=smarthomebu0d-20',
         priorities: ['convenience', 'entertainment', 'energy']
       },
       {
@@ -622,6 +624,7 @@
         category: 'camera',
         articleUrl: '/best-security-cameras/',
         articleLabel: 'Best Budget Security Cameras',
+        affiliateUrl: 'https://www.amazon.com/dp/B09KZRCQD4?tag=smarthomebu0d-20',
         priorities: ['security']
       },
       {
@@ -631,6 +634,7 @@
         category: 'speaker',
         articleUrl: '/best-smart-speakers/',
         articleLabel: 'Best Budget Smart Speakers',
+        affiliateUrl: 'https://www.amazon.com/dp/B09B8V1LZ3?tag=smarthomebu0d-20',
         priorities: ['entertainment', 'convenience']
       },
       {
@@ -640,6 +644,7 @@
         category: 'vacuum',
         articleUrl: '/best-robot-vacuums/',
         articleLabel: 'Best Budget Robot Vacuums',
+        affiliateUrl: 'https://www.amazon.com/dp/B08J2ZHXMV?tag=smarthomebu0d-20',
         priorities: ['cleaning']
       },
       {
@@ -649,6 +654,7 @@
         category: 'plug',
         articleUrl: '/best-smart-plugs/',
         articleLabel: 'Best Budget Smart Plugs',
+        affiliateUrl: 'https://www.amazon.com/dp/B07RC1ZYKT?tag=smarthomebu0d-20',
         priorities: ['convenience', 'energy']
       },
       {
@@ -658,6 +664,7 @@
         category: 'bulb',
         articleUrl: '/best-smart-bulbs/',
         articleLabel: 'Best Budget Smart Bulbs',
+        affiliateUrl: 'https://www.amazon.com/dp/B09B8V7Q3K?tag=smarthomebu0d-20',
         priorities: ['entertainment', 'convenience']
       },
       {
@@ -667,6 +674,7 @@
         category: 'camera',
         articleUrl: '/best-security-cameras/',
         articleLabel: 'Best Budget Security Cameras',
+        affiliateUrl: 'https://www.amazon.com/dp/B0B1N5HW4C?tag=smarthomebu0d-20',
         priorities: ['security']
       },
       {
@@ -676,6 +684,7 @@
         category: 'speaker',
         articleUrl: '/best-smart-speakers/',
         articleLabel: 'Best Budget Smart Speakers',
+        affiliateUrl: 'https://www.amazon.com/dp/B09WX6QD65?tag=smarthomebu0d-20',
         priorities: ['entertainment', 'convenience']
       },
       {
@@ -685,6 +694,7 @@
         category: 'camera',
         articleUrl: '/best-security-cameras/',
         articleLabel: 'Best Budget Security Cameras',
+        affiliateUrl: 'https://www.amazon.com/dp/B09KZRCQD4?tag=smarthomebu0d-20',
         priorities: ['security']
       },
       {
@@ -694,6 +704,7 @@
         category: 'bulb',
         articleUrl: '/best-smart-bulbs/',
         articleLabel: 'Best Budget Smart Bulbs',
+        affiliateUrl: 'https://www.amazon.com/dp/B09B8V7Q3K?tag=smarthomebu0d-20',
         priorities: ['convenience', 'energy']
       }
     ];
@@ -931,7 +942,7 @@
           '</div>' +
           '<div class="result-card-price">' +
             '<span class="price">$' + p.price + '</span>' +
-            '<a href="#affiliate" class="amazon-btn">Check Price on Amazon</a>' +
+            '<a href="' + p.affiliateUrl + '" class="amazon-btn" rel="nofollow noopener" target="_blank">Check Price on Amazon</a>' +
           '</div>';
         container.appendChild(card);
       });
